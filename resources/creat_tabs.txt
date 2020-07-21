@@ -1,0 +1,116 @@
+CREATE TABLE album (
+	id_album	 SERIAL,
+	titulo		 VARCHAR(512) NOT NULL,
+	descricao		 VARCHAR(512),
+	grupo_artista	 VARCHAR(512) NOT NULL,
+	data_edicao	 DATE NOT NULL,
+	quantidade	 NUMERIC(8,0) DEFAULT 0,
+	preco		 FLOAT(8) NOT NULL,
+	generos_cod_genero INTEGER NOT NULL,
+	PRIMARY KEY(id_album)
+);
+
+CREATE TABLE artigo_carrinho (
+	quantidade		 INTEGER DEFAULT 1,
+	preco		         FLOAT(8) NOT NULL,
+	carrinho_cod_carrinho INTEGER,
+	album_id_album	 INTEGER,
+	PRIMARY KEY(carrinho_cod_carrinho,album_id_album)
+);
+
+CREATE TABLE musicas (
+	codigo_musica SERIAL,
+	titulo	 VARCHAR(50) NOT NULL,
+	PRIMARY KEY(codigo_musica)
+);
+
+CREATE TABLE mensagemadministrador (
+	codigo_mensagem			 SERIAL,
+	assunto				 VARCHAR(100) NOT NULL,
+	conteudo				 VARCHAR(512) NOT NULL,
+	data_envio				 DATE NOT NULL,
+	administrador_utilizador_id_utilizador INTEGER NOT NULL,
+	PRIMARY KEY(codigo_mensagem)
+);
+
+CREATE TABLE updatepreco (
+	codigo_update			 SERIAL,
+	data_alteracao                  TIMESTAMP,
+	valor_antigo	                FLOAT(8) NOT NULL,
+	album_id_album                  INTEGER NOT NULL,
+	administrador_utilizador_id_utilizador INTEGER NOT NULL,
+	PRIMARY KEY(codigo_update)
+);
+
+CREATE TABLE mensagemcliente (
+	visualizada				 BOOL,
+	cliente_utilizador_id_utilizador	 INTEGER,
+	mensagemadministrador_codigo_mensagem INTEGER,
+	PRIMARY KEY(cliente_utilizador_id_utilizador,mensagemadministrador_codigo_mensagem)
+);
+
+CREATE TABLE artista (
+	id_artista SERIAL,
+	nome	 VARCHAR(512) NOT NULL,
+	PRIMARY KEY(id_artista)
+);
+
+CREATE TABLE generos (
+	cod_genero SERIAL,
+	designacao VARCHAR(512) NOT NULL,
+	PRIMARY KEY(cod_genero)
+);
+
+CREATE TABLE administrador (
+	utilizador_id_utilizador SERIAL,
+	utilizador_nome VARCHAR(200) NOT NULL,
+	utilizador_email	 VARCHAR(100) UNIQUE NOT NULL,
+	utilizador_password	 VARCHAR(100) NOT NULL,
+	utilizador_contacto	 NUMERIC(9,0),
+	PRIMARY KEY(utilizador_id_utilizador)
+);
+
+CREATE TABLE cliente (
+	utilizador_id_utilizador SERIAL,
+	utilizador_nome VARCHAR(200) NOT NULL,
+	utilizador_email	 VARCHAR(100) UNIQUE NOT NULL,
+	utilizador_password	 VARCHAR(100) NOT NULL,
+	utilizador_contacto	 NUMERIC(9,0),
+	saldo			 FLOAT(8) DEFAULT 20,
+	PRIMARY KEY(utilizador_id_utilizador)
+);
+
+CREATE TABLE carrinho (
+	cod_carrinho			 SERIAL,
+	data_compra			 TIMESTAMP,
+	montante_total			 FLOAT(8),
+	comprado			 BOOL NOT NULL,
+	cliente_utilizador_id_utilizador INTEGER NOT NULL,
+	PRIMARY KEY(cod_carrinho)
+);
+
+CREATE TABLE musicas_artista (
+	musicas_codigo_musica INTEGER,
+	artista_id_artista	 INTEGER,
+	PRIMARY KEY(musicas_codigo_musica,artista_id_artista)
+);
+
+CREATE TABLE musicas_album (
+	musicas_codigo_musica INTEGER,
+	album_id_album	 INTEGER,
+	PRIMARY KEY(musicas_codigo_musica,album_id_album)
+);
+
+ALTER TABLE album ADD CONSTRAINT album_fk1 FOREIGN KEY (generos_cod_genero) REFERENCES generos(cod_genero);
+ALTER TABLE artigo_carrinho ADD CONSTRAINT artigo_carrinho_fk1 FOREIGN KEY (carrinho_cod_carrinho) REFERENCES carrinho(cod_carrinho);
+ALTER TABLE artigo_carrinho ADD CONSTRAINT artigo_carrinho_fk2 FOREIGN KEY (album_id_album) REFERENCES album(id_album);
+ALTER TABLE mensagemadministrador ADD CONSTRAINT mensagemadministrador_fk1 FOREIGN KEY (administrador_utilizador_id_utilizador) REFERENCES administrador(utilizador_id_utilizador);
+ALTER TABLE updatepreco ADD CONSTRAINT updatepreco_fk1 FOREIGN KEY (album_id_album) REFERENCES album(id_album);
+ALTER TABLE updatepreco ADD CONSTRAINT updatepreco_fk2 FOREIGN KEY (administrador_utilizador_id_utilizador) REFERENCES administrador(utilizador_id_utilizador);
+ALTER TABLE mensagemcliente ADD CONSTRAINT mensagemcliente_fk1 FOREIGN KEY (cliente_utilizador_id_utilizador) REFERENCES cliente(utilizador_id_utilizador);
+ALTER TABLE mensagemcliente ADD CONSTRAINT mensagemcliente_fk2 FOREIGN KEY (mensagemadministrador_codigo_mensagem) REFERENCES mensagemadministrador(codigo_mensagem);
+ALTER TABLE carrinho ADD CONSTRAINT carrinho_fk1 FOREIGN KEY (cliente_utilizador_id_utilizador) REFERENCES cliente(utilizador_id_utilizador);
+ALTER TABLE musicas_artista ADD CONSTRAINT musicas_artista_fk1 FOREIGN KEY (musicas_codigo_musica) REFERENCES musicas(codigo_musica);
+ALTER TABLE musicas_artista ADD CONSTRAINT musicas_artista_fk2 FOREIGN KEY (artista_id_artista) REFERENCES artista(id_artista);
+ALTER TABLE musicas_album ADD CONSTRAINT musicas_album_fk1 FOREIGN KEY (musicas_codigo_musica) REFERENCES musicas(codigo_musica);
+ALTER TABLE musicas_album ADD CONSTRAINT musicas_album_fk2 FOREIGN KEY (album_id_album) REFERENCES album(id_album);

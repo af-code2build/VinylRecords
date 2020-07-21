@@ -1,0 +1,54 @@
+CREATE FUNCTION insere_artigo_carrinho (id_car integer, id_alb integer, quant integer) 
+RETURNS REAL AS $$
+
+DECLARE
+	x INTEGER;
+	novo_montante REAL;
+	valor_antigo REAL;
+	valor_atual REAL;
+	montante_antigo REAL;
+	quant_antiga INTEGER;
+	preco_antigo REAL;
+	preco_atual REAL;
+BEGIN
+	SELECT count(*) INTO x FROM artigo_carrinho
+	WHERE carrinho_cod_carrinho = id_car and album_id_album = id_alb;
+		
+	SELECT preco INTO preco_atual FROM album WHERE id_album=id_alb;
+		
+	SELECT montante_total INTO montante_antigo FROM carrinho WHERE cod_carrinho = id_car;
+
+	IF x <> 0 THEN
+	
+		SELECT quantidade, preco INTO quant_antiga, preco_antigo FROM artigo_carrinho 
+		WHERE carrinho_cod_carrinho = id_car and album_id_album = id_alb;	
+			
+		valor_antigo := quant_antiga * preco_antigo;
+			
+		montante_antigo := montante_antigo - valor_antigo;
+			
+		valor_atual := preco_atual*quant;
+			
+		novo_montante:= montante_antigo + valor_atual;
+			
+		UPDATE artigo_carrinho SET quantidade=quant, preco=preco_atual
+		WHERE carrinho_cod_carrinho=id_car and album_id_album = id_alb;
+			
+		UPDATE carrinho SET montante_total=novo_montante WHERE cod_carrinho=id_car;
+			
+		RETURN novo_montante;
+			
+	ELSE
+		INSERT INTO artigo_carrinho VALUES (quant, preco_atual, id_car, id_alb);
+			
+		valor_atual := preco_atual*quant;
+			
+		novo_montante:= montante_antigo + valor_atual;
+			
+		UPDATE carrinho SET montante_total=novo_montante WHERE cod_carrinho=id_car;
+			
+		RETURN novo_montante;
+		
+	END IF;
+END;
+$$  LANGUAGE plpgsql;

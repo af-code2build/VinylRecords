@@ -1,0 +1,168 @@
+/* Generos */
+  
+INSERT INTO generos (designacao) VALUES ('Rock');
+INSERT INTO generos (designacao) VALUES ('Pop');
+INSERT INTO generos (designacao) VALUES ('Música Clássica');
+INSERT INTO generos (designacao) VALUES ('Jazz');
+INSERT INTO generos (designacao) VALUES ('Pimba');
+
+
+/* Artista */
+
+INSERT INTO artista (nome) VALUES ('The Beatles');
+INSERT INTO artista (nome) VALUES ('Queens');
+INSERT INTO artista (nome) VALUES ('Frank Sinatra');
+INSERT INTO artista (nome) VALUES ('Coldplay');
+INSERT INTO artista (nome) VALUES ('Bruno Mars');
+INSERT INTO artista (nome) VALUES ('Cardi B');
+INSERT INTO artista (nome) VALUES ('The Chainsmokers');
+INSERT INTO artista (nome) VALUES ('Tony Carreira');
+INSERT INTO artista (nome) VALUES ('Ana Malhoa');
+INSERT INTO artista (nome) VALUES ('Emanuel');
+INSERT INTO artista (nome) VALUES ('Quim Barreiros');
+
+/* Musicas */
+  
+INSERT INTO musicas (titulo) VALUES ('Finesse');
+INSERT INTO musicas (titulo) VALUES ('24K Magic');
+INSERT INTO musicas (titulo) VALUES ('Just The Way You Are');
+INSERT INTO musicas (titulo) VALUES ('Grenade');
+INSERT INTO musicas (titulo) VALUES ('Yesterday');
+INSERT INTO musicas (titulo) VALUES ('I WantTo Break Free');
+INSERT INTO musicas (titulo) VALUES ('Help');
+INSERT INTO musicas (titulo) VALUES ('Oh Darling');
+INSERT INTO musicas (titulo) VALUES ('I Feel Fine');
+INSERT INTO musicas (titulo) VALUES ('Dont Stop Me Now');
+INSERT INTO musicas (titulo) VALUES ('Love of My Life');
+INSERT INTO musicas (titulo) VALUES ('Yellow');
+INSERT INTO musicas (titulo) VALUES ('We Will Rock You');
+INSERT INTO musicas (titulo) VALUES ('My Way');
+INSERT INTO musicas (titulo) VALUES ('New York, New York');
+INSERT INTO musicas (titulo) VALUES ('Something Just Like This');
+INSERT INTO musicas (titulo) VALUES ('Fix You');
+INSERT INTO musicas (titulo) VALUES ('Paradise');
+INSERT INTO musicas (titulo) VALUES ('A Sky Full of Stars');
+INSERT INTO musicas (titulo) VALUES ('Sonhos de Menino');
+INSERT INTO musicas (titulo) VALUES ('Sobe, sobe, balão sobe');
+INSERT INTO musicas (titulo) VALUES ('O rito do amor');
+INSERT INTO musicas (titulo) VALUES ('A Cabritinha');
+
+/* Utilizador */
+
+CREATE SEQUENCE utilizador_sequence
+  start 1
+  increment 1;
+  
+INSERT INTO administrador VALUES (nextval('utilizador_sequence'), 'Ana Lourenço', 'analour@gmail.com', 'postgres', '912345678');
+INSERT INTO administrador VALUES (nextval('utilizador_sequence'), 'Rita Fernandes', 'ritafernandes@gmail.com', 'postgres', '917897846');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'Lucas Matias', 'lucasm@gmail.com', 'matias', '917899876','50');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'Joana Medeiros', 'jo@gmail.com', 'unicornios', '965435901','100');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'Lourenço Eiro', 'lourencoeiro@gmail.com', 'jesus', '965711511','20');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'Carolina Gonçalves', 'caic03@gmail.com', 'caic', '934565901','100');
+INSERT INTO administrador VALUES (nextval('utilizador_sequence'), 'Tomás Rodrigues', 'tomasr@gmail.com', 'postgres', '969326718');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'Rute Marlene', 'rmarlene@gmail.com', 'pimba', '912565901','5');
+INSERT INTO administrador VALUES (nextval('utilizador_sequence'), 'ADMIN', 'admin@gmail.com', '123', '962326718');
+INSERT INTO cliente VALUES (nextval('utilizador_sequence'), 'CLIENT ZERO', 'cliente@gmail.com', '123', '912565401','100');
+
+/* Album */
+
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('24K Magic', 'Terceiro álbum de estúdio do cantor norte-americano lançado pela Atlantic Records', 'Bruno Mars', '20161118','20', '13.5', '2');
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('Help!', 'Quinto álbum do grupo.', 'The Beatles', '19650806','50', '19.99', '2');
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('QUEEN II!', 'Album do melhor grupo musical americano', 'Queen', '19740308','13', '10.99', '1');
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('My Way', 'Album de Estreia', 'Frank Sinatra', '19690320','5', '25.0', '4');
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('Ghost Stories', 'Sexto álbum de originais dos britânicos Coldplay', 'Coldplay', '20141220','18', '9.99', '1');
+INSERT INTO album (titulo,descricao,grupo_artista,data_edicao,quantidade,preco,generos_cod_genero) VALUES ('Vamos Dançar', 'Musica Tradicional Portuguesa', 'Coletanea', '20171208','3', '5.99', '5');
+
+
+/* Mensagem Administrador */
+
+INSERT INTO mensagemadministrador (assunto,conteudo,data_envio,administrador_utilizador_id_utilizador) VALUES ('Promoção de Natal', 'A não perder! 20% de desconto em CDs natalícios!','20191118', '1');
+INSERT INTO mensagemadministrador (assunto,conteudo,data_envio,administrador_utilizador_id_utilizador) VALUES ('Campanha Solidária', '1% daquilo que comprar reverterá para a Liga Portuguesa Contra o Cancro!','20161013', '2');
+
+
+
+/* Mensagem Cliente */
+  
+INSERT INTO mensagemcliente VALUES (false, '3', '1');
+INSERT INTO mensagemcliente VALUES (true, '3', '2');
+INSERT INTO mensagemcliente VALUES (true, '4', '1');
+INSERT INTO mensagemcliente VALUES (false, '4', '2');
+INSERT INTO mensagemcliente VALUES (true, '5', '1');
+INSERT INTO mensagemcliente VALUES (false, '5', '2');
+INSERT INTO mensagemcliente VALUES (false, '6', '1');
+INSERT INTO mensagemcliente VALUES (true, '6', '2');
+INSERT INTO mensagemcliente VALUES (true, '8', '1');
+INSERT INTO mensagemcliente VALUES (true, '8', '2');
+
+/* Musica Artista */
+
+/*Coletania: Album Vamos Dançar*/
+INSERT INTO musicas_artista VALUES ('20', '8');
+INSERT INTO musicas_artista VALUES ('21', '9');
+INSERT INTO musicas_artista VALUES ('22', '10');
+INSERT INTO musicas_artista VALUES ('23', '11');
+
+
+/*Colaboração (Finesse) */
+INSERT INTO musicas_artista VALUES ('6', '7');
+INSERT INTO musicas_artista VALUES ('1', '6');
+
+
+/* Musica Album */
+
+/*Album 24k Magic*/
+INSERT INTO musicas_album VALUES ('1', '1');
+INSERT INTO musicas_album VALUES ('2', '1');
+INSERT INTO musicas_album VALUES ('3', '1');
+INSERT INTO musicas_album VALUES ('4', '1');
+
+/*Album Help*/
+INSERT INTO musicas_album VALUES ('5', '2');
+INSERT INTO musicas_album VALUES ('7', '2');
+INSERT INTO musicas_album VALUES ('8', '2');
+
+/*Album QUEEN II*/
+INSERT INTO musicas_album VALUES ('6', '3');
+INSERT INTO musicas_album VALUES ('10', '3');
+INSERT INTO musicas_album VALUES ('11', '3');
+INSERT INTO musicas_album VALUES ('13', '3');
+
+/*Album My Way*/
+INSERT INTO musicas_album VALUES ('14', '4');
+INSERT INTO musicas_album VALUES ('15', '4');
+
+/*Ghost Stories*/
+INSERT INTO musicas_album VALUES ('12', '5');
+INSERT INTO musicas_album VALUES ('16', '5');
+INSERT INTO musicas_album VALUES ('17', '5');
+INSERT INTO musicas_album VALUES ('18', '5');
+INSERT INTO musicas_album VALUES ('19', '5');
+
+/*Vamos Dançar*/
+INSERT INTO musicas_album VALUES ('20', '6');
+INSERT INTO musicas_album VALUES ('21', '6');
+INSERT INTO musicas_album VALUES ('22', '6');
+INSERT INTO musicas_album VALUES ('23', '6');
+
+/* Carrinho */
+  
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES ('20170103 12:35:25',true,'13.5','3');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'27','5');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES ( '20180529 20:34:11',true,'112.93','8');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'0','8');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'0','4');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'0','6');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'0','3');
+INSERT INTO carrinho (data_compra,comprado,montante_total,cliente_utilizador_id_utilizador) VALUES (null,false,'0','10');
+
+/* Artigo Carrinho */
+
+INSERT INTO artigo_carrinho VALUES ('1', '13.5', '1', '1');
+INSERT INTO artigo_carrinho VALUES ('2','13.5', '2', '1');
+INSERT INTO artigo_carrinho VALUES ('3', '19.99','3', '3');
+INSERT INTO artigo_carrinho VALUES ('4','10.99' ,'3', '2');
+
+/*Update Preço*/
+INSERT INTO updatepreco (data_alteracao,valor_antigo,album_id_album,administrador_utilizador_id_utilizador) VALUES ('20180101', '12.5', '1','2');
+
+	
